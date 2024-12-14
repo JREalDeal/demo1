@@ -1,0 +1,126 @@
+openapi: 3.0.3
+info:
+  description: API for managing products
+  title: Product API
+  version: 1.0.0
+servers:
+- description: Main production server
+  url: https://api.example.com/v1
+paths:
+  /products:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Product"
+                type: array
+          description: A list of products
+      summary: Get a list of products
+      x-accepts:
+      - application/json
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+          description: Product created successfully
+      summary: Create a new product
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /products/{id}:
+    delete:
+      parameters:
+      - description: ID of the product to delete
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Product deleted successfully
+      summary: Delete a product by ID
+      x-accepts:
+      - application/json
+    get:
+      parameters:
+      - description: ID of the product to retrieve
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+          description: Product details found
+        "404":
+          description: Product not found
+      summary: Get a single product by ID
+      x-accepts:
+      - application/json
+    put:
+      parameters:
+      - description: ID of the product to update
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
+      responses:
+        "200":
+          description: Product updated successfully
+      summary: Update an existing product by ID
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    Product:
+      example:
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          description: Unique identifier for the product
+          type: string
+        name:
+          description: Name of the product
+          type: string
+        description:
+          description: A short description of the product
+          type: string
+      required:
+      - description
+      - id
+      - name
+      type: object
+
