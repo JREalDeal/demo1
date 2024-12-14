@@ -1,5 +1,7 @@
-# Instruction
+# OpenAPI Generator Gradle Plugin
+This is a demo project to show how to use the OpenAPI Generator Gradle Plugin to generate code from an OpenAPI spec file.
 
+## Instruction
 1. Goto build.gradle.kts
 2. ```./gradlew clean downloadSpecAPI buildGen build``` main build command.
 
