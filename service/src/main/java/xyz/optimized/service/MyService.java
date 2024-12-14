@@ -9,5 +9,8 @@ public class MyService {
         return "Hello, World! from Service";
     }
 
-    Placinta placinta = new Placinta();
+    public Placinta getPlacinta() {
+        return new Placinta().name("Placinta cu branza")
+                .description("Placinta cu branza si marar de la mama");
+    }
 }
