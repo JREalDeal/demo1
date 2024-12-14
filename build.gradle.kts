@@ -91,7 +91,7 @@ project(":service") {
 
 openApiGenerate {
     generatorName.set("java")
-    inputSpec.set("$rootDir/specs/DoughFlowApi.yaml")
+    inputSpec.set("$rootDir/downloaded/iaka.yaml")
     outputDir.set("$rootDir/generated")
 //    outputDir.set("$buildDir/generated")
     apiPackage.set("org.openapi.example.api")

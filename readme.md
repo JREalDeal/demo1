@@ -9,6 +9,8 @@
 ```./gradlew clean```
 5. Alternatively, you can use the following command to generate the code and build the project:
 ```./gradlew clean buildGen build```
+6. For demo purposes, now the code is taking the spec yaml from the internet.
+```./gradlew clean downloadSpecAPI buildGen build```
 
 # Note
 Now the subproject model is redundant, as the subproject generated is taking care of the model generation. 
