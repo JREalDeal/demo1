@@ -1,6 +1,7 @@
 package xyz.optimized.service;
 
-import org.openapi.example.model.Product;
+
+import org.openapi.example.model.Placinta;
 
 public class MyService {
 
@@ -8,7 +9,5 @@ public class MyService {
         return "Hello, World! from Service";
     }
 
-    public Product getProduct() {
-        return new Product().id("1").name("Product 1").description("Description 1");
-    }
+    Placinta placinta = new Placinta();
 }
