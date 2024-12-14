@@ -1,3 +1,5 @@
+import java.net.URI
+
 plugins {
     id("java")
     id("org.openapi.generator") version "7.10.0"
@@ -98,13 +100,33 @@ openApiGenerate {
     configOptions.put("dateLibrary", "java8")
 }
 
-//tasks.named("build") {
-//    dependsOn("buildGen")
-//    doFirst() {
-//        println("Executing build from Main")
-//        openApiGenerate
-//    }
-//}
+tasks.register("downloadSpecAPI") {
+    group = "utility"
+    description = "Downloads a YAML file from a specified URL and saves it in the rootFolder/downloaded directory"
+
+    val yamlUrl = "https://raw.githubusercontent.com/JREalDeal/demo1/refs/heads/main/specs/DoughFlowApi.yaml" // Replace with the actual URL
+    val outputDir = layout.projectDirectory.dir("downloaded")
+    val outputFile = outputDir.file("iaka.yaml")
+
+    doLast {
+        // Ensure the output directory exists
+        val outputDirectory = outputDir.asFile
+        if (!outputDirectory.exists()) {
+            outputDirectory.mkdirs()
+        }
+
+        // Download the file
+        val uri = URI.create(yamlUrl)
+        val connection = uri.toURL().openConnection()
+        connection.getInputStream().use { input ->
+            outputFile.asFile.outputStream().use { output ->
+                input.copyTo(output)
+            }
+        }
+
+        println("Downloaded YAML file to: ${outputFile.asFile.absolutePath}")
+    }
+}
 
 
 
