@@ -18,8 +18,21 @@ subprojects {
 }
 
 
+project(":service") {
+    dependencies {
+        "implementation"(project(":generated"))
+    }
+    tasks.named("compileJava") {
+        mustRunAfter(project(":").tasks.named("openApiGenerate"))
+        mustRunAfter(project(":generated").tasks.named("compileJava"))
+    }
+}
+
+
+// Download Spec: Define the name of the downloaded file and the URL to download from
 val downloadedFile = "iaka.yaml"
-val yamlUrl = "https://raw.githubusercontent.com/JREalDeal/demo1/refs/heads/main/specs/DoughFlowApi.yaml" // Replace with the actual URL
+val yamlUrl =
+    "https://raw.githubusercontent.com/JREalDeal/demo1/refs/heads/main/specs/DoughFlowApi.yaml" // Replace with the actual URL
 
 tasks.register("downloadSpec") {
     group = "utility"
@@ -49,6 +62,7 @@ tasks.register("downloadSpec") {
 }
 
 
+// OpenAPI Generator: Generate Java code from the downloaded YAML file
 openApiGenerate {
     generatorName.set("java")
     inputSpec.set("$rootDir/downloaded/iaka.yaml")
@@ -61,13 +75,15 @@ openApiGenerate {
 }
 
 
-
-project(":generated") {
-    tasks.named("compileJava") {
-        dependsOn(project(":").tasks.named("buildGen"))
+tasks.register("buildGen") {
+    dependsOn("openApiGenerate")
+    doFirst() {
+        println("Executing buildGen task")
+    }
+    doLast() {
+        println("Finished executing buildGen task")
     }
 }
-
 
 
 tasks.named("clean") {
@@ -75,32 +91,19 @@ tasks.named("clean") {
 }
 
 
-
+// Delete the generated and downloaded directories
 tasks.register("deleteGenerated", Delete::class) {
     delete("$rootDir/generated")
     delete("$rootDir/downloaded")
 }
 
-tasks.register("buildGen") {
-    dependsOn("openApiGenerate")
-    doFirst() {
-        println("Executing buildGen")
-    }
-}
+
 
 tasks.named("openApiGenerate") {
     dependsOn("downloadSpec")
 }
 
-project(":service") {
-    dependencies {
-        "implementation"(project(":generated"))
-    }
-    tasks.named("compileJava") {
-        mustRunAfter(project(":").tasks.named("openApiGenerate"))
-        mustRunAfter(project(":generated").tasks.named("compileJava"))
-    }
-}
+
 
 
 
