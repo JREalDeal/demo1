@@ -44,13 +44,16 @@ tasks.register("buildGen") {
     }
 }
 
+tasks.named("openApiGenerate") {
+    dependsOn("downloadSpec")
+}
+
 project(":service") {
     dependencies {
         "implementation"(project(":generated"))
     }
-
     tasks.named("compileJava") {
-        mustRunAfter(project(":").tasks.named("buildGen"))
+        mustRunAfter(project(":").tasks.named("openApiGenerate"))
         mustRunAfter(project(":generated").tasks.named("compileJava"))
     }
 }
@@ -69,13 +72,15 @@ openApiGenerate {
     configOptions.put("dateLibrary", "java8")
 }
 
+val downloadedFile = "iaka.yaml"
+val yamlUrl = "https://raw.githubusercontent.com/JREalDeal/demo1/refs/heads/main/specs/DoughFlowApi.yaml" // Replace with the actual URL
+
 tasks.register("downloadSpec") {
     group = "utility"
     description = "Downloads a YAML file from a specified URL and saves it in the rootFolder/downloaded directory"
 
-    val yamlUrl = "https://raw.githubusercontent.com/JREalDeal/demo1/refs/heads/main/specs/DoughFlowApi.yaml" // Replace with the actual URL
     val outputDir = layout.projectDirectory.dir("downloaded")
-    val outputFile = outputDir.file("iaka.yaml")
+    val outputFile = outputDir.file(downloadedFile)
 
     doLast {
         // Ensure the output directory exists
