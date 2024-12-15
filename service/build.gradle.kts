@@ -2,8 +2,9 @@ plugins {
     id("java")
 }
 
-group = "xyz.optimized"
-version = "1.0-SNAPSHOT"
+//group and id are defined in the root project
+//group = "xyz.optimized"
+//version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
