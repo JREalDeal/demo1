@@ -1,7 +1,7 @@
 package xyz.optimized.service;
 
 
-import org.openapi.example.model.Placinta;
+import xyz.optyimized.model.Placinta;
 
 public class MyService {
 

@@ -63,15 +63,29 @@ tasks.register("downloadSpec") {
 
 
 // OpenAPI Generator: Generate Java code from the downloaded YAML file
+val myPackage = "xyz.optyimized"
 openApiGenerate {
     generatorName.set("java")
     inputSpec.set("$rootDir/downloaded/iaka.yaml")
     outputDir.set("$rootDir/generated")
 //    outputDir.set("$buildDir/generated")
-    apiPackage.set("org.openapi.example.api")
-    invokerPackage.set("org.openapi.example.invoker")
-    modelPackage.set("org.openapi.example.model")
-    configOptions.put("dateLibrary", "java8")
+    apiPackage.set(myPackage+".api")
+    invokerPackage.set(myPackage+".invoker")
+    modelPackage.set(myPackage+".model")
+//    configOptions.put("dateLibrary", "java8")
+    configOptions.set(
+        mapOf(
+            "reactive" to "true", // Enable reactive support
+            "dateLibrary" to "java8", // Optional: Use Java 8 time library
+            "asyncNative" to "true",
+            "library" to "webclient" // Optional: Use WebClient
+        )
+    )
+//    additionalProperties.set(
+//        mapOf(
+//            "buildTool" to "gradle"
+//        )
+//    )
 }
 
 
