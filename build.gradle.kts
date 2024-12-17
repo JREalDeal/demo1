@@ -22,10 +22,10 @@ project(":service") {
     dependencies {
         "implementation"(project(":generated"))
     }
-    tasks.named("compileJava") {
-        mustRunAfter(project(":").tasks.named("openApiGenerate"))
-        mustRunAfter(project(":generated").tasks.named("compileJava"))
-    }
+//    tasks.named("compileJava") {
+//        mustRunAfter(project(":").tasks.named("openApiGenerate"))
+//        mustRunAfter(project(":generated").tasks.named("compileJava"))
+//    }
 }
 
 
@@ -72,7 +72,6 @@ openApiGenerate {
     apiPackage.set(myPackage+".api")
     invokerPackage.set(myPackage+".invoker")
     modelPackage.set(myPackage+".model")
-//    configOptions.put("dateLibrary", "java8")
     configOptions.set(
         mapOf(
             "reactive" to "true", // Enable reactive support
@@ -81,11 +80,6 @@ openApiGenerate {
             "library" to "webclient" // Optional: Use WebClient
         )
     )
-//    additionalProperties.set(
-//        mapOf(
-//            "buildTool" to "gradle"
-//        )
-//    )
 }
 
 
@@ -118,7 +112,11 @@ tasks.named("openApiGenerate") {
 }
 
 
-
+tasks.register("hello") {
+    doFirst() {
+        println("Hello Mircea")
+    }
+}
 
 
 
