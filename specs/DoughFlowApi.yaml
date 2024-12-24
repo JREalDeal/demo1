@@ -140,6 +140,22 @@ components:
             type: string
           description: List of ingredients.
 
+    Tutorial:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the order.
+        title:
+          type: string
+          description: Title of the tutorial
+        description:
+          type: string
+          description: description of the tutorial
+        publicationDate:
+          type: string
+          description: date of publication
+
     Order:
       type: object
       properties:
