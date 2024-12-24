@@ -139,7 +139,6 @@ components:
           items:
             type: string
           description: List of ingredients.
-
     Tutorial:
       type: object
       properties:
@@ -155,7 +154,6 @@ components:
         publicationDate:
           type: string
           description: date of publication
-
     Order:
       type: object
       properties:
