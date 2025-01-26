@@ -40,4 +40,4 @@ version = extra["version"] as String
 ```
 The downside is that we have an extra file and the syntax is not as straightforward.
 ```
-`Delete this, Davide`
+
